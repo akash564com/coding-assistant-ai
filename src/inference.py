@@ -1,6 +1,14 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from prompts import BASE_PROMPT
+import os
+HF_TOKEN = os.environ.get("HUGGINGFACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
+# then pass token when loading:
+token = HF_TOKEN
+token_args = {"use_auth_token": token} if token else {}
+tokenizer = AutoTokenizer.from_pretrained(model_name, **token_args)
+model = AutoModelForCausalLM.from_pretrained(model_name, **token_args, device_map="auto")
+
 
 class CodingAI:
     def __init__(self, model_name="deepseek-ai/deepseek-coder-6.7b-instruct"):
