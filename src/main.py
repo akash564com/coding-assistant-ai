@@ -21,10 +21,13 @@ def main():
         print("\n🤖 AI Response:\n", response)
 
         # Auto-run code block if Python detected
-        if "def " in response or "print(" in response:
+        if "def " in response or "print(" in response or "```" in response:
             print("\n[⚡ Running the generated code...]")
             result = run_code(response)
-            print("Execution Result:", result)
+            if result["status"] == "success":
+                print("✅ Execution Result:\n", result["output"])
+            else:
+                print("❌ Execution Error:\n", result["output"])
 
         # Save to memory
         memory.add(user_input, response)

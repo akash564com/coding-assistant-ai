@@ -2,3 +2,6 @@ transformers
 torch
 accelerate
 chromadb
+sentencepiece
+bitsandbytes
+huggingface_hub
